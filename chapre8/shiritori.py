@@ -6,6 +6,7 @@ def main():
     word = ''
     next_head = ''
     while(True):
+        print('ワードを入力:')
         word = input().strip()
         jadge, next_head = shiritori(word, next_head)
         if not jadge or word == "quit":
