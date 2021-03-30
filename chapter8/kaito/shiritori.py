@@ -30,11 +30,11 @@ def main():
         print('ワードを入力:')
         word = input().strip()
         jadge, next_head = shiritori(word, next_head, words)
-        if not jadge or word == "quit":
-            print("NG")
+        if not jadge or word == 'quit':
+            print('NG')
             break
-        print("OK")
+        print('OK')
         words.append(word)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
