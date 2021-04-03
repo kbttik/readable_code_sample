@@ -14,9 +14,12 @@ def shiritori(word, next_head, words):
     # ? next_headをどうやって持ってこようとしてる？
     # ? next_headをこの関数の中で定義？
     # ? next_headは1文字の文字列にすると良さそう
-    if word[-1] != next_head[0]:
+    
+    is_not_match_head = word[-1] != next_head[0]
+    if is_not_match_head:
       print("しりとりになってない！やり直し！")
-      break #下の関数でbreakは使われてるからいらない？
+      return False, ""
+    
     elif word[-1] == "ん":
       print("「ん」で終わったので負け")
       break
