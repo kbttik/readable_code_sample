@@ -35,7 +35,7 @@ class Game:
         """
         return word[-1] == 'ん'
 
-    def is_lose_by_match(self, word:str, last_key:str) -> bool:
+    def is_lose_by_match(self, word:str) -> bool:
         """前回のワードの最後とマッチしていないで負けているか。
 
         Args:
@@ -48,7 +48,7 @@ class Game:
         if last_key == '':
             return False
 
-        return word[0] != last_key
+        return word[0] != self.last_key
 
     def is_lose_by_already(self, word:str) -> bool:
         """すでに使っている単語なので負け
@@ -71,7 +71,7 @@ class Game:
         Returns:
             bool: [description]
         """
-        return any([self.is_lose_by_len(word), self.is_lose_by_tail(word), self.is_lose_by_match(word, self.last_key), self.is_lose_by_already(word)])
+        return any([self.is_lose_by_len(word), self.is_lose_by_tail(word), self.is_lose_by_match(word), self.is_lose_by_already(word)])
 
     def exec_game(self):
         while(True):
