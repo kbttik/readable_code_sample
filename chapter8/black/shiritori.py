@@ -7,25 +7,42 @@ Original file is located at
     https://colab.research.google.com/drive/1-9elUqK_o-Rb8tBpuKNRQvsONjK-Yc8L
 """
 
-#20210403 松原 Cap. 8
+#20210409 松原 Cap. 8
 
 def shiritori(word, next_head, words):
-    # TODO: ５文字以下のワードが3回連続したら終了
-    # ? next_headをどうやって持ってこようとしてる？
-    # ? next_headをこの関数の中で定義？
-    # ? next_headは1文字の文字列にすると良さそう
+    # debug用
+    print(word[-1]) 
+    print(len(word))
+
+    is_finished_nn = word[-1] == "ん"
+    if is_finished_nn:
+      print("「ん」で終わったので負け")
+      return False, ""
     
-    is_not_match_head = word[-1] != next_head[0]
+    is_first_time = next_head==''
+    if is_first_time:
+      return True, word[-1]
+
+    is_not_match_head = word[0] != next_head
     if is_not_match_head:
       print("しりとりになってない！やり直し！")
       return False, ""
     
-    elif word[-1] == "ん":
-      print("「ん」で終わったので負け")
-      break
+    #is_already_used = word in words
+    #elif is_already_used:
+    # in を使うと説明変数が作れない？
     elif word in words:
       print("すでに使われてるので負け！")
-    return True, 'aaa' #←aaaに意味はある？
+      return False, ""
+    
+    # TODO: ５文字以下のワードが3回連続したら終了
+    # ひとまず5文字以下だとダメとして実装
+    #is_under_5_words = int(word) <= 5
+    #elif len(word) <= 5: #is_under_5_words:
+    #  print("5文字以下")
+    #  return False, ""
+
+    return True, word[-1] # wordを引数にnext_headを返す
 
 def main():
     word = ''
@@ -35,7 +52,7 @@ def main():
         print('ワードを入力:')
         word = input().strip()
         jadge, next_head = shiritori(word, next_head, words)
-        if not jadge or word == "quit":
+        if not jadge or word == "quit": #quitを入力してもis_not_match_headで判定される？>>Falseを返しているだけ
             print("NG")
             break
         print("OK")
