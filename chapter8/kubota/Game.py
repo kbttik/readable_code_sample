@@ -45,7 +45,7 @@ class Game:
         Returns:
             bool: [description]
         """
-        if last_key == '':
+        if self.last_key == '':
             return False
 
         return word[0] != self.last_key
@@ -66,7 +66,6 @@ class Game:
 
         Args:
             word (str): [description]
-            last_key (str): [description]
 
         Returns:
             bool: [description]
