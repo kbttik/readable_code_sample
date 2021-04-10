@@ -1,6 +1,6 @@
 def shiritori(word, next_head, words):
     # TODO: 実装してください
-    return True, 'aaa'
+    return True, 'a'
 
 def main():
     word = ''
