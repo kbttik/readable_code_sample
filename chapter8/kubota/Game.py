@@ -84,6 +84,7 @@ class Game:
             word (str): [description]
         """
         self.is_lose = any([self.is_lose_by_len(word), self.is_lose_by_tail(word), self.is_lose_by_match(word), self.is_lose_by_already(word)])
+        return self.is_lose
 
     def set_word(self, word:str):
         """wordリストに追加と、次の先頭文字の設定
