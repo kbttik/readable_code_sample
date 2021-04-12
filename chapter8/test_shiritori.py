@@ -8,8 +8,8 @@ def test_しりとり成功(monkeypatch):
     word = ''
     next_head = ''
     words = []
-    for word in ['りんごじゅーす', 'すりがらす', 'すずめのなみだ', 'だちょう', 'うんこ']:
-        monkeypatch.setattr('sys.stdin', io.StringIO(word))
+    for w in ['りんごじゅーす', 'すりがらす', 'すずめのなみだ', 'だちょう', 'うんこ']:
+        monkeypatch.setattr('sys.stdin', io.StringIO(w))
         print('ワードを入力:')
         word = input().strip()
         jadge, next_head = kaito_shiritori(word, next_head, words)
@@ -25,8 +25,8 @@ def test_しりとり失敗_末尾と先頭の不一致(monkeypatch):
     word = ''
     next_head = ''
     words = []
-    for word in ['りんご', 'すりがらす']:
-        monkeypatch.setattr('sys.stdin', io.StringIO(word))
+    for w in ['りんご', 'すりがらす']:
+        monkeypatch.setattr('sys.stdin', io.StringIO(w))
         print('ワードを入力:')
         word = input().strip()
         jadge, next_head = kaito_shiritori(word, next_head, words)
