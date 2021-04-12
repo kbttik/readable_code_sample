@@ -23,6 +23,20 @@ def shiritori(word, next_head, words):
     if is_first_time:
       return True, word[-1]
 
+    # ５文字以下のワードが3回連続したら終了
+    w_length_under_3 = len(words) >= 2 #wordsの要素数を取得
+    if w_length_under_3:
+      #is_under_5_words = len(word) <= 5
+      if len(word) <= 5: #is_under_5_words:
+        w1 = len(words[0]) #1つ前に格納したword
+        w2 = len(words[1]) #2つ前に格納したword
+        if w1 <= 5:
+          if w2 <= 5:
+            print("5文字以下が３回連続したので終了")
+            return False, ""
+          #2つ前と１つ前のwordの長さを保存するとよさそう
+          #カイジの沼みたいなギミック？
+    
     is_not_match_head = word[0] != next_head
     if is_not_match_head:
       print("しりとりになってない！やり直し！")
@@ -35,14 +49,8 @@ def shiritori(word, next_head, words):
       print("すでに使われてるので負け！")
       return False, ""
     
-    # TODO: ５文字以下のワードが3回連続したら終了
-    # ひとまず5文字以下だとダメとして実装
-    #is_under_5_words = int(word) <= 5
-    #elif len(word) <= 5: #is_under_5_words:
-    #  print("5文字以下")
-    #  return False, ""
-
     return True, word[-1] # wordを引数にnext_headを返す
+
 
 def main():
     word = ''
