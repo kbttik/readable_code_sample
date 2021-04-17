@@ -7,45 +7,38 @@ Original file is located at
     https://colab.research.google.com/drive/1-9elUqK_o-Rb8tBpuKNRQvsONjK-Yc8L
 """
 
-#20210409 松原 Cap. 8
+#20210417 松原 Cap. 8
 
 def shiritori(word, next_head, words):
-    # debug用
-    print(word[-1]) 
-    print(len(word))
+    ## debug用
+    #print(word[-1]) 
+    #print(len(word))
 
-    is_finished_nn = word[-1] == "ん"
-    if is_finished_nn:
+    #TODO: フラグをany()に集結
+    is_lose_with_nn = word[-1] == "ん"
+    if is_lose_with_nn:
       print("「ん」で終わったので負け")
       return False, ""
     
-    is_first_time = next_head==''
-    if is_first_time:
-      return True, word[-1]
+    #is_first_time = next_head==''
+    #if is_first_time:
+    #  return True, word[-1]
+    # 20210417 is_not_match_headに機能を統合
 
     # ５文字以下のワードが3回連続したら終了
-    w_length_under_3 = len(words) >= 2 #wordsの要素数を取得
-    if w_length_under_3:
-      #is_under_5_words = len(word) <= 5
-      if len(word) <= 5: #is_under_5_words:
-        w1 = len(words[0]) #1つ前に格納したword
-        w2 = len(words[1]) #2つ前に格納したword
-        if w1 <= 5:
-          if w2 <= 5:
-            print("5文字以下が３回連続したので終了")
-            return False, ""
-          #2つ前と１つ前のwordの長さを保存するとよさそう
-          #カイジの沼みたいなギミック？
+    if len(word) <= 5:
+      is_lose_continue_short_words = [ len(word) <= 5 for word in words[-2:] ] == [True, True]
+      if is_lose_continue_short_words:
+        print("5文字以下が３回連続したので終了")
+        return False, ""
     
-    is_not_match_head = word[0] != next_head
+    is_not_match_head = not ((next_head == '') or (word[0] == next_head))
     if is_not_match_head:
       print("しりとりになってない！やり直し！")
       return False, ""
     
-    #is_already_used = word in words
-    #elif is_already_used:
-    # in を使うと説明変数が作れない？
-    elif word in words:
+    is_lose_already_used = word in words
+    if is_lose_already_used:
       print("すでに使われてるので負け！")
       return False, ""
     
