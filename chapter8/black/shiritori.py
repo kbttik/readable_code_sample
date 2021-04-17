@@ -10,7 +10,7 @@ Original file is located at
 #20210417 松原 Cap. 8
 
 def shiritori(word, next_head, words):
-    """しりとりの勝ち負けを判定する関数
+    """しりとりの勝敗を判定する関数
 
       Args:
         word (str): 入力ワード
@@ -18,7 +18,7 @@ def shiritori(word, next_head, words):
         words (list): １つ前までのワードが格納されているリスト
 
       Returns:
-        bool: 負けTrue/満たしているFalseの論理値をnot any()でまとめて判定
+        bool: 負けTrue/満たしているFalseの論理値をnot any()でまとめて判定して「Falseなら負け」
         next_head (str): wordを引数に最後の文字を返す
       
       memo:
