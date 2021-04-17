@@ -25,19 +25,19 @@ class Game:
         Returns:
             bool: 負けTrue/満たしているFalseの論理値
         """
-        return len(word) < self.min_word_len
-    
-    def count_under(self, word:str):
-        """X文字列以下のcountを足していく
 
-        Args:
-            word (str): [description]
-        """
+        # X文字列以下のcountを足していく
         if len(word) >= self.min_word_len:
             self.now_count = 0
-        else
+        else:
             self.now_count += 1
 
+        #if len(word) < self.min_word_len:
+        if self.now_count >= self.max_count:
+            print('長さが%s以下のワードが%s回連続したので負け！' % (self.min_word_len, self.max_count))
+            return True
+        else:
+            return False
     
     def is_lose_by_tail(self, word:str) -> bool:
         """ワードの最後が「ん」で負けているか
@@ -48,7 +48,11 @@ class Game:
         Returns:
             bool: 負けTrue
         """
-        return word[-1] == 'ん'
+        if word[-1] == 'ん':
+            print('ん がついた！負け')
+            return True
+        else:
+            return False
 
     def is_lose_by_match(self, word:str) -> bool:
         """前回のワードの最後とマッチしていないで負けているか。
@@ -60,10 +64,15 @@ class Game:
         Returns:
             bool: [description]
         """
-        if self.last_key == '':
+        if (word[0] != self.last_key):
+            # しりとりの開始のときは、一致しなくても負けない
+            # 毎回評価させないために位置をここにした
+            if self.last_key == '':
+                return False
+            print('前のワードとしりとりになってない！最後のワード%s' % self.last_key)
+            return True
+        else:
             return False
-
-        return word[0] != self.last_key
 
     def is_lose_by_already(self, word:str) -> bool:
         """すでに使っている単語なので負け
@@ -74,11 +83,14 @@ class Game:
         Returns:
             bool: 単語が含まれているから負け
         """
-        return word in self.words
-
+        if word in self.words:
+            print('もう使ってるよ！%s' % word)
+            return True
+        else:
+            return False
 
     def judge_lose(self, word:str) -> bool:
-        """ステータスから状態を評価する
+        """全部の負けを評価して保持する
 
         Args:
             word (str): [description]
@@ -95,32 +107,20 @@ class Game:
         self.words.append(word)
         self.last_key = word[-1]
 
-    def judge_is_lose(self, word:str) -> bool:
-        """全部の負けを評価する
-
-        Args:
-            word (str): [description]
-
-        Returns:
-            bool: [description]
-        """
-        return any([self.is_lose_by_len(word), self.is_lose_by_tail(word), self.is_lose_by_match(word), self.is_lose_by_already(word)])
-
     def exec_game(self):
         while(True):
             print('ワードを入力:')
             word = input().strip()
-            if self.judge_is_lose(word):
+            if self.judge_lose(word):
                 print('NG')
                 break
             print('OK')
             # 最後の文字を更新
-            self.last_key = word[-1]
             # 使ったワードリストに追加
-            self.words.append(word)
+            self.set_word(word)
 
 def main():
-    game = Game(5)
+    game = Game(6, 2)
     #game.exec_game()
     while(True):
         print('ワードを入力')
@@ -128,7 +128,7 @@ def main():
         if game.judge_lose(word):
                 print('NG')
                 break
-            print('OK')
+        print('OK')
         # 最後の文字を更新
         # 使ったワードリストに追加
         game.set_word(word)
